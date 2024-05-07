@@ -18,3 +18,6 @@ Answer -> "undefined"
 
 
 # Send the Pull Request for this challenge
+
+To send the pull Request Make sure you are adding a folder with your name and then adding the files in that folder 
+
