@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>localStorage with Expiry</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>localStorage with Expiry</h1>
+      <div class="input-container">
+        <label for="keyInput">Key:</label>
+        <input type="text" id="keyInput" placeholder="Enter key" />
+      </div>
+      <div class="input-container">
+        <label for="valueInput">Value:</label>
+        <input type="text" id="valueInput" placeholder="Enter value" />
+      </div>
+      <div class="input-container">
+        <label for="expiryInput">Expiry (seconds):</label>
+        <input
+          type="number"
+          id="expiryInput"
+          min="1"
+          placeholder="Enter expiry time"
+        />
+      </div>
+      <div class="button-container">
+        <button onclick="setItem()">Set Item</button>
+        <button onclick="getItem()">Get Item</button>
+      </div>
+      <p id="output"></p>
+    </div>
+    <script src="script.js" defer></script>
+  </body>
+</html>
