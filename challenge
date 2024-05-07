@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage with Expiry</title>
+</head>
+<body>
+    <script>
+        const StorageWithExpiry = {
+            setItem: function(key, value, expiryInSeconds) {
+                const now = new Date();
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryInSeconds * 1000,
+                };
+                // Store the item as a string in local storage
+                localStorage.setItem(key, JSON.stringify(item));
+            },
+
+            getItem: function(key) {
+                const itemStr = localStorage.getItem(key);
+                if (!itemStr) {
+                    return null;  
+                }
+                const item = JSON.parse(itemStr);
+                const now = new Date();
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key);  
+                    return null;
+                }
+                return item.value;  
+            }
+        };
+
+        // Example usage:
+        StorageWithExpiry.setItem("user", "Sam Adel", 10);
+
+       
+        console.log(StorageWithExpiry.getItem("user"));  // Outputs: Sam Adel
+
+        // Log the value after 10 seconds to demonstrate expiration
+        setTimeout(() => {
+            console.log(StorageWithExpiry.getItem("user"));  // Expected output: null
+        }, 10000);  // 10 seconds later
+    </script>
+</body>
+</html>
