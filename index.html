@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge 1 | Local Storage with Expiry </title>
+</head>
+
+<body>
+    <script>
+        window.localStorageWithExpiry = {
+            setItem(key, value, expiry) {
+                let localStoredValue = {
+                    data: value
+                }
+
+                if (expiry) {
+                    localStoredValue.expiry = Date.now() + expiry;
+                }
+                localStorage.setItem(key, JSON.stringify(localStoredValue));
+            },
+
+            getItem(key) {
+                let localStoredValue = JSON.parse(localStorage.getItem(key));
+                if (localStoredValue) {
+                    if (localStoredValue.expiry <= Date.now()) {
+                        localStorage.removeItem(key);
+                        return;
+                    }
+                    return localStoredValue.data;
+                }
+            }
+        }
+        window.localStorageWithExpiry.setItem('key1', 'value', 1000);
+        console.log("Query within 1000 Seconds");
+        console.log(window.localStorageWithExpiry.getItem('key1'));
+        console.log("Query after 1000 Seconds");
+        setTimeout(() => {
+            console.log(window.localStorageWithExpiry.getItem('key1'));
+        }, 1500);
+    </script>
+</body>
+
+</html>
